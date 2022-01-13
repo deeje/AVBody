@@ -5,6 +5,8 @@
 
 **AVBody** is a framework using AVFoundation to record and playback ARBody recognition.
 
+I with Apple would provide this directly, but here we are…
+
 ## Features
 * TBD
 
@@ -22,14 +24,20 @@ TBD
 pod 'AVBody'
 ```
 
+TBD SwiftPackage
+
 ## How to help?
 What would you like to see improved?
-
+Do you know AVFoundation?
+Lots of TBDs to resolve
 
 ## Roadmap
 
-- [ ] Add methods to clear local cache and remote database
-- [ ] Add error resolving for `limitExceeded` error (split saves by relationships).
+- [ ] Declare and use custom metadata type
+- [ ] resolve issue with ARSession failing when ending AVCaptureSession
+- [ ] Remove reliance on adding audio track during recording
+- [ ] Example app to demonstrate usage
+- [ ] Documentation
 
 
 ## Authors
