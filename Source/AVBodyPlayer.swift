@@ -118,9 +118,7 @@ public class AVBodyPlayer: NSObject, AVPlayerItemMetadataOutputPushDelegate {
                     switch itemIdentifier {
                     case AVBodyMetadata.identifier:
                         if itemDataType == String(AVBodyMetadata.type) {
-                            guard let bodyMetadataString = metdataItem.value as? String,
-                                  let bodyData = bodyMetadataString.data(using: .utf8),
-                                  let joints = try? JSONSerialization.jsonObject(with: bodyData, options: []) as? [String: Any]
+                            guard let joints = metdataItem.value as? [String: Any]
                              else { return }
                             
                             delegate?.avBodyPlayer(self, process: joints)

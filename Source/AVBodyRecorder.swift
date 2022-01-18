@@ -386,10 +386,9 @@ public class AVBodyRecorder: NSObject, AVCaptureFileOutputRecordingDelegate {
                 }
             }
             
-            if let jsonData = try? JSONSerialization.data(withJSONObject: joints, options: [.prettyPrinted]),
-               let bodyJSONString = String(data: jsonData, encoding: .utf8)
+            if let jsonData = try? JSONSerialization.data(withJSONObject: joints, options: [.prettyPrinted])
             {
-                newBodyMetadataItem.value = bodyJSONString as NSString
+                newBodyMetadataItem.value = jsonData as NSData
             }
             
             items = [newBodyMetadataItem]

@@ -12,7 +12,7 @@ public class AVBodyMetadata {
     
     static let specIdentifier = kCMMetadataFormatDescriptionMetadataSpecificationKey_Identifier as String
     static let specType = kCMMetadataFormatDescriptionMetadataSpecificationKey_DataType as String
-    static let identifier = AVMetadataIdentifier.quickTimeMetadataLocationISO6709  // AVMetadataIdentifier("com.deeje.ARMirror.bodyMetadata")
-    static let type = kCMMetadataDataType_QuickTimeMetadataLocation_ISO6709 as String    // kCMMetadataBaseDataType_JSON as String
+    static let identifier = AVMetadataIdentifier("mdta/com.deeje.ARBody.metadata")
+    static let type = kCMMetadataBaseDataType_JSON as String
     
 }
