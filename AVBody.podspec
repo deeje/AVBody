@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "AVBody"
   s.summary          = "Framework using AVFoundation for ARBody recording and playback"
-  s.version          = "0.0.1"
+  s.version          = "0.0.2"
   s.homepage         = "https://github.com/deeje/AVBody"
   s.license          = 'MIT'
   s.author           = { "deeje" => "deeje@mac.com" }

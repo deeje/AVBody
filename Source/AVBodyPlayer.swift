@@ -1,6 +1,6 @@
 //
 //  AVBodyPlayer.swift
-//  ARMirror
+//  AVBody
 //
 //  Created by deeje cooley on 1/11/22.
 //
@@ -45,7 +45,7 @@ public class AVBodyPlayer: NSObject, AVPlayerItemMetadataOutputPushDelegate {
     public init(url: URL) {
         let asset = AVAsset(url: url)
         let mutableComposition = AVMutableComposition()
-        for metadataTrack in asset.tracks(withMediaType: AVMediaType.metadata) {
+        for metadataTrack in asset.tracks(withMediaType: .metadata) {
             if metadataTrack.has(metadataIdentifier: AVBodyMetadata.identifier.rawValue) {
                 let bodyMetadataTrack = mutableComposition.addMutableTrack(withMediaType: AVMediaType.metadata,
                                                                            preferredTrackID: kCMPersistentTrackID_Invalid)
@@ -118,9 +118,7 @@ public class AVBodyPlayer: NSObject, AVPlayerItemMetadataOutputPushDelegate {
                     switch itemIdentifier {
                     case AVBodyMetadata.identifier:
                         if itemDataType == String(AVBodyMetadata.type) {
-                            guard let bodyMetadataString = metdataItem.value as? String,
-                                  let bodyData = bodyMetadataString.data(using: .utf8),
-                                  let joints = try? JSONSerialization.jsonObject(with: bodyData, options: []) as? [String: Any]
+                            guard let joints = metdataItem.value as? [String: Any]
                              else { return }
                             
                             delegate?.avBodyPlayer(self, process: joints)
