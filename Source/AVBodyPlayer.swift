@@ -110,15 +110,15 @@ public class AVBodyPlayer: NSObject, AVPlayerItemMetadataOutputPushDelegate {
                 // TODO: handle intervals where no body exists
             }
             else {
-                for metdataItem in metadataGroup.items {
-                    guard let itemIdentifier = metdataItem.identifier, let itemDataType = metdataItem.dataType else {
+                for metadataItem in metadataGroup.items {
+                    guard let itemIdentifier = metadataItem.identifier, let itemDataType = metadataItem.dataType else {
                         continue
                     }
                     
                     switch itemIdentifier {
                     case AVBodyMetadata.identifier:
                         if itemDataType == String(AVBodyMetadata.type) {
-                            guard let joints = metdataItem.value as? [String: Any]
+                            guard let joints = metadataItem.value as? [String: Any]
                              else { return }
                             
                             delegate?.avBodyPlayer(self, process: joints)
