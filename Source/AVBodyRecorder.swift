@@ -131,9 +131,13 @@ public class AVBodyRecorder: NSObject {
             let floats = root.rowMajorArray
             joints["root"] = floats
             
-            for jointName in ARSkeletonDefinition.defaultBody3D.jointNames {
+            let skeleton = bodyAnchor.skeleton
+            let definition = skeleton.definition
+            for jointName in definition.jointNames {
                 let joint = ARSkeleton.JointName(rawValue: jointName)
-                if let transform = bodyAnchor.skeleton.localTransform(for: joint) {
+                let jointIndex = definition.index(for: joint)
+                let isTracked = skeleton.isJointTracked(jointIndex)
+                if isTracked, let transform = bodyAnchor.skeleton.localTransform(for: joint) {
                     let floats = transform.rowMajorArray
                     joints[jointName] = floats
                 }
