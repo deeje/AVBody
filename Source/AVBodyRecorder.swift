@@ -44,6 +44,21 @@ public class AVBodyRecorder: NSObject {
     private var noBody = true
     
     public func startRecording() {
+        func getVideoTransform() -> CGAffineTransform {
+            switch UIDevice.current.orientation {
+            case .portrait:
+                return .identity
+            case .portraitUpsideDown:
+                return CGAffineTransform(rotationAngle: .pi)
+            case .landscapeLeft:
+                return CGAffineTransform(rotationAngle: .pi/2)
+            case .landscapeRight:
+                return CGAffineTransform(rotationAngle: -.pi/2)
+            default:
+                return .identity
+            }
+        }
+        
         let outputFileName = NSUUID().uuidString
         let outputFilePath = (NSTemporaryDirectory() as NSString)
                                 .appendingPathComponent((outputFileName as NSString)
@@ -58,8 +73,9 @@ public class AVBodyRecorder: NSObject {
             AVVideoWidthKey  : canvasSize.width as AnyObject,
             AVVideoHeightKey : canvasSize.height as AnyObject,
         ]
-        videoInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoSettings)
+        videoInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
         videoInput.expectsMediaDataInRealTime = true
+        videoInput?.transform = getVideoTransform()
         assetWriter.add(videoInput)
         
         let sourceBufferAttributes = [
@@ -109,12 +125,14 @@ public class AVBodyRecorder: NSObject {
     }
     
     private func capture(pixelBuffer: CVPixelBuffer, at time: CMTime) {
-        if videoInput.isReadyForMoreMediaData {
-            let _ = pixelBufferAdaptor.append(pixelBuffer, withPresentationTime: time)
-        }
+        guard videoInput.isReadyForMoreMediaData else { return }
+        
+        let _ = pixelBufferAdaptor.append(pixelBuffer, withPresentationTime: time)
     }
     
     private func capture(anchors: [ARAnchor], at time: CMTime) {
+        guard bodyMetadataInput.isReadyForMoreMediaData else { return }
+        
         var items: [AVMutableMetadataItem]?
         
         if let bodyAnchor = anchors.filter({ $0 is ARBodyAnchor }).first as? ARBodyAnchor
@@ -129,7 +147,7 @@ public class AVBodyRecorder: NSObject {
             
             let root = SCNMatrix4.init(bodyAnchor.transform)
             let floats = root.rowMajorArray
-            joints["root"] = floats
+            joints["anchor"] = floats
             
             let skeleton = bodyAnchor.skeleton
             let definition = skeleton.definition
@@ -156,7 +174,7 @@ public class AVBodyRecorder: NSObject {
         if let items = items {
             let timeRange = CMTimeRangeMake(start: time, duration: CMTime.invalid)
             let metadataItemGroup = AVTimedMetadataGroup(items: items, timeRange: timeRange)
-            self.bodyMetadataInputAdaptor.append(metadataItemGroup)
+            bodyMetadataInputAdaptor.append(metadataItemGroup)
         }
     }
     
