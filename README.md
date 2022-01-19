@@ -33,11 +33,10 @@ Lots of TBDs to resolve
 
 ## Roadmap
 
-- [ ] Declare and use custom metadata type
-- [ ] resolve issue with ARSession failing when ending AVCaptureSession
-- [ ] Remove reliance on adding audio track during recording
 - [ ] Example app to demonstrate usage
 - [ ] Documentation
+- [ ] Support Face tracking
+- [ ] Support Hand tracking
 
 
 ## Authors
