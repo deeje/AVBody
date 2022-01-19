@@ -1,6 +1,6 @@
 //
 //  AVBodyMetadata.swift
-//  ARMirror
+//  AVBody
 //
 //  Created by deeje cooley on 1/3/22.
 //
