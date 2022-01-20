@@ -49,13 +49,13 @@ public class AVBodyRecorder: NSObject {
         func getVideoTransform() -> CGAffineTransform {
             switch UIDevice.current.orientation {
             case .portrait:
-                return .identity
-            case .portraitUpsideDown:
-                return CGAffineTransform(rotationAngle: .pi)
-            case .landscapeLeft:
                 return CGAffineTransform(rotationAngle: .pi/2)
-            case .landscapeRight:
+            case .portraitUpsideDown:
                 return CGAffineTransform(rotationAngle: -.pi/2)
+            case .landscapeLeft:
+                return .identity
+            case .landscapeRight:
+                return CGAffineTransform(rotationAngle: .pi)
             default:
                 return .identity
             }
