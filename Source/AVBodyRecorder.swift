@@ -18,7 +18,7 @@ public protocol AVBodyRecorderDelegate: NSObject {
 }
 
 public class AVBodyRecorder: NSObject {
-    
+        
     public weak var delegate: AVBodyRecorderDelegate?
     
     public var isRecording = false {
@@ -37,13 +37,15 @@ public class AVBodyRecorder: NSObject {
     
     private var videoInput: AVAssetWriterInput!
     private var pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor!
-        
+    
+    private var audioInput: AVAssetWriterInput?
+    
     private var bodyMetadataInput: AVAssetWriterInput!
     private var bodyMetadataInputAdaptor: AVAssetWriterInputMetadataAdaptor!
-        
+    
     private var noBody = true
     
-    public func startRecording() {
+    public func startRecording(withAudio: Bool) {
         func getVideoTransform() -> CGAffineTransform {
             switch UIDevice.current.orientation {
             case .portrait:
@@ -58,7 +60,7 @@ public class AVBodyRecorder: NSObject {
                 return .identity
             }
         }
-        
+                
         let outputFileName = NSUUID().uuidString
         let outputFilePath = (NSTemporaryDirectory() as NSString)
                                 .appendingPathComponent((outputFileName as NSString)
@@ -67,12 +69,14 @@ public class AVBodyRecorder: NSObject {
         
         assetWriter = try! AVAssetWriter(outputURL: outputURL, fileType: .mov)
         
+            // video
         let canvasSize = CGSize(width: 640, height: 480)
         let videoSettings: [String : AnyObject] = [
             AVVideoCodecKey  : AVVideoCodecType.h264 as AnyObject,
             AVVideoWidthKey  : canvasSize.width as AnyObject,
             AVVideoHeightKey : canvasSize.height as AnyObject,
         ]
+        
         videoInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
         videoInput.expectsMediaDataInRealTime = true
         videoInput?.transform = getVideoTransform()
@@ -85,6 +89,15 @@ public class AVBodyRecorder: NSObject {
         pixelBufferAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: videoInput,
                                                                   sourcePixelBufferAttributes: sourceBufferAttributes)
         
+            // audio
+        if withAudio {
+            let preset = AVOutputSettingsAssistant(preset: .preset640x480)!
+            audioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: preset.audioSettings)
+            audioInput!.expectsMediaDataInRealTime = true
+            assetWriter.add(audioInput!)
+        }
+        
+            // body
         let specs: [String : Any] = [AVBodyMetadata.specIdentifier: AVBodyMetadata.identifier,
                                      AVBodyMetadata.specType: AVBodyMetadata.type]
         var bodyMetadataDesc: CMFormatDescription?
@@ -97,6 +110,7 @@ public class AVBodyRecorder: NSObject {
         
         bodyMetadataInputAdaptor = AVAssetWriterInputMetadataAdaptor(assetWriterInput: bodyMetadataInput)
         
+            // … and go!
         if assetWriter.startWriting() {
             assetWriter.startSession(atSourceTime: CMClockGetTime(clock))
             
@@ -108,6 +122,7 @@ public class AVBodyRecorder: NSObject {
         isRecording = false
         
         videoInput.markAsFinished()
+        audioInput?.markAsFinished()
         assetWriter.finishWriting {
             DispatchQueue.main.async { [unowned self] in
                 delegate?.avBodyRecorder(self, didFinishRecording: assetWriter.outputURL)
@@ -122,6 +137,12 @@ public class AVBodyRecorder: NSObject {
         
         capture(pixelBuffer: frame.capturedImage, at: time)
         capture(anchors: frame.anchors, at: time)
+    }
+    
+    public func capture(from audioSampleBuffer: CMSampleBuffer) {
+        guard isRecording, let audioInput = audioInput, audioInput.isReadyForMoreMediaData else { return }
+        
+        let _ = audioInput.append(audioSampleBuffer)
     }
     
     private func capture(pixelBuffer: CVPixelBuffer, at time: CMTime) {
