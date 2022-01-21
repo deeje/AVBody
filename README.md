@@ -5,10 +5,12 @@
 
 **AVBody** is a framework using AVFoundation to record and playback ARBody recognition.
 
-I with Apple would provide this directly, but here we are…
+I wish Apple would provide this directly, but here we are…
 
 ## Features
-* TBD
+* AVBodyRecorder records video and body joints from an ARSession
+* AVBodyPlayer uses AVPlayer to pass back body joints to a delegate
+* Audio recording is optional
 
 
 ## How it works?
@@ -24,19 +26,18 @@ TBD
 pod 'AVBody'
 ```
 
-TBD SwiftPackage
+### SwiftPackage
+TBD 
 
 ## How to help?
 What would you like to see improved?
-Do you know AVFoundation?
-Lots of TBDs to resolve
 
 ## Roadmap
 
 - [ ] Example app to demonstrate usage
 - [ ] Documentation
 - [ ] Support Face tracking
-- [ ] Support Hand tracking
+- [ ] Support Hand tracking ??
 
 
 ## Authors
