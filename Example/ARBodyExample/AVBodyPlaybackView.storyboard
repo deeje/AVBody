@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Body Playback View Controller-->
+        <scene sceneID="oMc-TC-ZA6">
+            <objects>
+                <viewController storyboardIdentifier="AVBodyPlaybackView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2AF-Wa-pJ9" customClass="AVBodyPlaybackViewController" customModule="ARMirror" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vlC-VQ-unl">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rae-O9-gtZ">
+                                <rect key="frame" x="182" y="64" width="51" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Play"/>
+                                <connections>
+                                    <action selector="playButtonTapped:" destination="2AF-Wa-pJ9" eventType="touchUpInside" id="nxt-v3-K4N"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2P-73-36w">
+                                <rect key="frame" x="175" y="115" width="64" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Pause"/>
+                                <connections>
+                                    <action selector="pauseButtonTapped:" destination="2AF-Wa-pJ9" eventType="touchUpInside" id="FZI-kE-gMe"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8Oa-5G-0F2"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="J2P-73-36w" firstAttribute="top" secondItem="rae-O9-gtZ" secondAttribute="bottom" constant="20" id="5wD-lI-zvZ"/>
+                            <constraint firstItem="rae-O9-gtZ" firstAttribute="top" secondItem="8Oa-5G-0F2" secondAttribute="top" constant="20" id="8PV-0W-zTh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="pauseButton" destination="J2P-73-36w" id="YMy-YV-lnk"/>
+                        <outlet property="playButton" destination="rae-O9-gtZ" id="Drz-LZ-kTa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gre-OT-tVA" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Item" id="H8n-mx-YWU" userLabel="Play"/>
+            </objects>
+            <point key="canvasLocation" x="96" y="85"/>
+        </scene>
+    </scenes>
+</document>
