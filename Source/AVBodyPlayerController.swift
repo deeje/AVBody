@@ -1,5 +1,5 @@
 //
-//  AVBodyPlayer.swift
+//  AVBodyPlayerController.swift
 //  AVBody
 //
 //  Created by deeje cooley on 1/11/22.
@@ -21,16 +21,16 @@ extension AVAssetTrack {
     
 }
 
-public protocol AVBodyPlayerDelegate: NSObject {
+public protocol AVBodyPlayerControllerDelegate: NSObject {
     
-    func avBodyPlayer(_ avBodyPlayer: AVBodyPlayer, process joints: [String: Any])
-    func avBodyPlayerDidReachEnd(_ avBodyPlayer: AVBodyPlayer)
+    func avBodyPlayer(_ avBodyPlayer: AVBodyPlayerController, process joints: [String: Any])
+    func avBodyPlayerDidReachEnd(_ avBodyPlayer: AVBodyPlayerController)
     
 }
 
-public class AVBodyPlayer: NSObject, AVPlayerItemMetadataOutputPushDelegate {
+public class AVBodyPlayerController: NSObject, AVPlayerItemMetadataOutputPushDelegate {
     
-    public weak var delegate: AVBodyPlayerDelegate?
+    public weak var delegate: AVBodyPlayerControllerDelegate?
     
     private let player: AVPlayer
     private let bodyMetadataOutput = AVPlayerItemMetadataOutput(identifiers: nil)
