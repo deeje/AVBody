@@ -10,9 +10,9 @@ import AVFoundation
 
 public class AVBodyMetadata {
     
-    static let specIdentifier = kCMMetadataFormatDescriptionMetadataSpecificationKey_Identifier as String
-    static let specType = kCMMetadataFormatDescriptionMetadataSpecificationKey_DataType as String
-    static let identifier = AVMetadataIdentifier("mdta/com.deeje.ARBody.metadata")
-    static let type = kCMMetadataBaseDataType_JSON as String
+    static public let specIdentifier = kCMMetadataFormatDescriptionMetadataSpecificationKey_Identifier as String
+    static public let specType = kCMMetadataFormatDescriptionMetadataSpecificationKey_DataType as String
+    static public let identifier = AVMetadataIdentifier("mdta/com.deeje.ARBody.metadata")
+    static public let type = kCMMetadataBaseDataType_JSON as String
     
 }
