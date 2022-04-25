@@ -1,5 +1,5 @@
 
-target 'ARMirror' do
+target 'AVBodyExample' do
   platform :ios, '15.0'
   use_frameworks!
   

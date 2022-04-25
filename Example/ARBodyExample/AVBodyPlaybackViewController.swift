@@ -20,7 +20,7 @@ class AVBodyPlaybackViewController : UIViewController, Storyboarded {
         
     public var isPlaying: Bool {
         get {
-            return player.isPlaying
+            return player.rate != 0
         }
     }
     
@@ -32,7 +32,7 @@ class AVBodyPlaybackViewController : UIViewController, Storyboarded {
         
         super.init(coder: coder)
         
-        player.delegate = self
+        player.bodyDelegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -48,8 +48,6 @@ class AVBodyPlaybackViewController : UIViewController, Storyboarded {
         
         playButton.isEnabled = true
         pauseButton.isEnabled = false
-        
-        player.prepare()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -93,11 +91,6 @@ extension AVBodyPlaybackViewController: AVBodyPlayerDelegate {
                 childNode.transform = SCNMatrix4(rowMajor: floats)
             }
         }
-    }
-    
-    func avBodyPlayerDidReachEnd(_ avBodyPlayer: AVBodyPlayer) {
-        playButton.isEnabled = true
-        pauseButton.isEnabled = false
     }
     
 }
