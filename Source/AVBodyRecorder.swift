@@ -60,7 +60,7 @@ public class AVBodyRecorder: NSObject {
                 return .identity
             }
         }
-                
+        
         let outputFileName = NSUUID().uuidString
         let outputFilePath = (NSTemporaryDirectory() as NSString)
                                 .appendingPathComponent((outputFileName as NSString)

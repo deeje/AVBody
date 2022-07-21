@@ -54,7 +54,8 @@ public class AVBodyPlayer: AVPlayer, AVPlayerItemMetadataOutputPushDelegate {
                         }
                         
                         default:
-                            print("Timed metadata: unrecognized metadata identifier \(itemIdentifier)")
+//                            print("Timed metadata: unrecognized metadata identifier \(itemIdentifier)")
+                            break
                     }
                 }
             }
