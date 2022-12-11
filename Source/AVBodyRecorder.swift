@@ -192,7 +192,7 @@ public class AVBodyRecorder: NSObject {
             items = []
         }
         
-        if let items = items {
+        if let items {
             let timeRange = CMTimeRangeMake(start: time, duration: CMTime.invalid)
             let metadataItemGroup = AVTimedMetadataGroup(items: items, timeRange: timeRange)
             bodyMetadataInputAdaptor.append(metadataItemGroup)
