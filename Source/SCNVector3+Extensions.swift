@@ -233,13 +233,14 @@ public func SCNVector3Lerp(vectorStart: SCNVector3, vectorEnd: SCNVector3, t: Fl
 /*
  angle in radians
  */
+/*
 public func SCNVector3Rotate(vector: SCNVector3, around: SCNVector3, radians : Float ) -> SCNVector3 {
     
     let rm = GLKMatrix3MakeRotation(radians, around.x, around.y, around.z);
     let v = GLKMatrix3MultiplyVector3(rm, SCNVector3ToGLKVector3(vector))
     return SCNVector3FromGLKVector3(v)
-    
 }
+ */
 
 /**
  * Project the vector, vectorToProject, onto the vector, projectionVector.
